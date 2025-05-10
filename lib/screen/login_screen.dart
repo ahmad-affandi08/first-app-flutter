@@ -1,8 +1,10 @@
+import 'package:firstappflutter/main.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../services/penyimpanan_local.dart';
 import '../model/pengguna.dart';
-import 'profile_screen.dart';
 import 'register_screen.dart';
+// import 'home_screen.dart'; // Mengubah import home_screen menjadi main.dart
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -27,7 +29,7 @@ class LoginScreenState extends State<LoginScreen> {
   Future<void> _cekLoginSebelumnya() async {
     final pengguna = await PenyimpananLocal.dapatkanPenggunaTerkini();
     if (pengguna != null && mounted) {
-      _navigasiKeProfile(pengguna);
+      _navigasiKeHome(pengguna);
     }
   }
 
@@ -44,7 +46,7 @@ class LoginScreenState extends State<LoginScreen> {
 
       if (pengguna != null) {
         await PenyimpananLocal.simpanPenggunaTerkini(pengguna);
-        if (mounted) _navigasiKeProfile(pengguna);
+        if (mounted) _navigasiKeHome(pengguna);
       } else {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -57,13 +59,9 @@ class LoginScreenState extends State<LoginScreen> {
     }
   }
 
-  void _navigasiKeProfile(Pengguna pengguna) {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ProfileScreen(pengguna: pengguna),
-      ),
-    );
+  void _navigasiKeHome(Pengguna pengguna) {
+    // Mengubah navigasi dari HomeScreen ke MainScreen
+    Get.off(() => MainScreen(pengguna: pengguna));
   }
 
   @override
@@ -186,12 +184,7 @@ class LoginScreenState extends State<LoginScreen> {
                       const SizedBox(height: 16),
                       TextButton(
                         onPressed: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => const RegisterScreen(),
-                            ),
-                          );
+                          Get.to(() => const RegisterScreen());
                         },
                         child: const Text('Belum punya akun? Daftar di sini'),
                       ),

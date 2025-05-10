@@ -1,9 +1,9 @@
 class Pengguna {
-  String nama;
-  String email;
-  String kataSandi;
-  String nomorTelepon;
-  String alamat;
+  final String nama;
+  final String email;
+  final String kataSandi;
+  final String nomorTelepon;
+  final String alamat;
 
   Pengguna({
     required this.nama,
@@ -13,7 +13,18 @@ class Pengguna {
     this.alamat = '',
   });
 
-  // Konversi ke Map untuk penyimpanan
+  // Konversi dari Map (untuk membaca dari penyimpanan lokal)
+  factory Pengguna.fromMap(Map<String, dynamic> map) {
+    return Pengguna(
+      nama: map['nama'] ?? '',
+      email: map['email'] ?? '',
+      kataSandi: map['kataSandi'] ?? '',
+      nomorTelepon: map['nomorTelepon'] ?? '',
+      alamat: map['alamat'] ?? '',
+    );
+  }
+
+  // Konversi ke Map (untuk menyimpan ke penyimpanan lokal)
   Map<String, dynamic> toMap() {
     return {
       'nama': nama,
@@ -24,14 +35,20 @@ class Pengguna {
     };
   }
 
-  // Membuat objek Pengguna dari Map
-  factory Pengguna.fromMap(Map<String, dynamic> map) {
+  // Membuat salinan objek Pengguna dengan nilai yang diperbarui
+  Pengguna copyWith({
+    String? nama,
+    String? email,
+    String? kataSandi,
+    String? nomorTelepon,
+    String? alamat,
+  }) {
     return Pengguna(
-      nama: map['nama'],
-      email: map['email'],
-      kataSandi: map['kataSandi'],
-      nomorTelepon: map['nomorTelepon'] ?? '',
-      alamat: map['alamat'] ?? '',
+      nama: nama ?? this.nama,
+      email: email ?? this.email,
+      kataSandi: kataSandi ?? this.kataSandi,
+      nomorTelepon: nomorTelepon ?? this.nomorTelepon,
+      alamat: alamat ?? this.alamat,
     );
   }
 }

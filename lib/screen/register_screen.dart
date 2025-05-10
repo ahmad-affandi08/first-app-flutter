@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import '../model/pengguna.dart';
 import '../services/penyimpanan_local.dart';
 import 'login_screen.dart';
@@ -144,9 +145,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                       child: ElevatedButton(
                         onPressed: _sedangMemuat ? null : _handleRegister,
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(
-                            0xFF4CAF50,
-                          ), // Ganti dengan warna yang sesuai
+                          backgroundColor: const Color(0xFF4CAF50),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12),
                           ),
@@ -170,12 +169,7 @@ class RegisterScreenState extends State<RegisterScreen> {
                     const SizedBox(height: 16),
                     TextButton(
                       onPressed: () {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
-                          ),
-                        );
+                        Get.off(() => const LoginScreen());
                       },
                       child: const Text(
                         'Sudah punya akun? Login di sini',
@@ -206,7 +200,7 @@ class RegisterScreenState extends State<RegisterScreen> {
       controller: controller,
       decoration: InputDecoration(
         labelText: label,
-        prefixIcon: Icon(icon, color: const Color(0xFF4CAF50)), // Warna hijau
+        prefixIcon: Icon(icon, color: const Color(0xFF4CAF50)),
         border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
       ),
       keyboardType: keyboardType,
